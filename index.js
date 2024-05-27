@@ -143,7 +143,23 @@ wppconnect.create({
     useChrome: true,
     headless: true,
     debug: false,
-    browserArgs: ['--no-sandbox']
+    browserArgs: ['--no-sandbox',
+    '--no-experiments',
+    '--hide-scrollbars',
+    '--disable-plugins',
+    '--disable-infobars',
+    '--disable-translate',
+    '--disable-pepper-3d',
+    '--disable-extensions',
+    '--disable-dev-shm-usage',
+    '--disable-notifications',
+    '--disable-setuid-sandbox',
+    '--disable-crash-reporter',
+    '--disable-smooth-scrolling',
+    '--disable-login-animations',
+    '--disable-dinosaur-easter-egg',
+    '--disable-accelerated-2d-canvas',
+    '--disable-rtc-smoothness-algorithm']
 })
 .then((client) => {
     console.log('Client created successfully');
