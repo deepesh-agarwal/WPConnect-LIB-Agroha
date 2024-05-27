@@ -1,6 +1,7 @@
 const express = require('express');
 const wppconnect = require('@wppconnect-team/wppconnect');
 const fs = require('fs');
+const winston = require('winston');
 
 const app = express();
 const PORT = 3000;
@@ -44,6 +45,7 @@ const sessionData = loadSessionData();
 
 // Function to send a welcome message and a bonfire message
 async function sendWelcome(name, phoneNumber) {
+    phoneNumber = sanitizePhoneNumber(phoneNumber);
     const message = `Dear ${name}, Thank you for your stay. Pls. Dial *110* for kitchen and *9* for Reception, you can also call *8881088844*. To access FREE WiFi service pls. connect to *Hotel Agroha* with password - *agroha123*. We strictly prohibit any illegal activity in our premises like Gambling.`;
     const chatId = `${phoneNumber}@c.us`;
 
@@ -99,8 +101,20 @@ app.get('/sendWelcome', (req, res) => {
     }
 });
 
+// Create a custom logger with the desired configuration
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
+
 wppconnect.create({
     session: 'hotel',
+    logger: logger,
     catchQR: (base64Qr, asciiQR) => {
         console.log(asciiQR); // Optional to log the QR in the terminal
 
