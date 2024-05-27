@@ -141,7 +141,7 @@ wppconnect.create({
     logQR: false,
     sessionData: sessionData, // Pass session data to restore the session
     useChrome: true,
-    headless: false,
+    headless: true,
     debug: false,
     browserArgs: ['--no-sandbox']
 })
