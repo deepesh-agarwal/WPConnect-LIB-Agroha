@@ -129,7 +129,7 @@ wppconnect.create({
     useChrome: true,
     headless: true,
     debug: false,
-    autoClose: 60000,
+    //autoClose: 60000,
     browserArgs: ['--no-sandbox']
 })
 .then((client) => {
