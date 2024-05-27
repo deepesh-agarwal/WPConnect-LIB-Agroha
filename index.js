@@ -100,7 +100,7 @@ app.get('/sendWelcome', (req, res) => {
 });
 
 wppconnect.create({
-    session: 'sessionName',
+    session: 'hotel',
     catchQR: (base64Qr, asciiQR) => {
         console.log(asciiQR); // Optional to log the QR in the terminal
 
@@ -125,7 +125,12 @@ wppconnect.create({
         });
     },
     logQR: false,
-    sessionData: sessionData // Pass session data to restore the session
+    sessionData: sessionData, // Pass session data to restore the session
+    useChrome: true,
+    headless: true,
+    debug: false,
+    autoClose: 60000,
+    browserArgs: ['--no-sandbox']
 })
 .then((client) => {
     console.log('Client created successfully');
